@@ -8,7 +8,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node . ./config.json",
     "lint": "eslint --ext .js,.ts src",
     "test": "mocha test --require ts-node/register --recursive --extension .spec.ts"
   },
