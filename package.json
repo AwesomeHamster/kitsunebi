@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint --ext .js,.ts src",
-    "test": "mocha test --require ts-node/register --recursive --extension .spec.ts"
+    "test": "mocha test --require ts-node/register --recursive --extension .spec.ts",
+    "test:coverage": "nyc --reporter=lcovonly --reporter=text mocha test --require ts-node/register --recursive --extension .spec.ts"
   },
   "repository": "https://github.com/AwesomeHamster/kitsunebi.git",
   "author": "Maiko Tan <maiko.tan.coding@gmail.com>",
@@ -27,6 +28,7 @@
     "chai": "^4.3.0",
     "eslint": "^7.20.0",
     "mocha": "^8.3.0",
+    "nyc": "^15.1.0",
     "ts-loader": "^8.0.17",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5",
