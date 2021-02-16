@@ -1,7 +1,9 @@
 import { expect } from "chai";
 
+import { start } from "../src/index";
+
 describe("Index", () => {
-  it("Pass!", () => {
-    expect("pass").equal("pass");
+  it("Throw!", () => {
+    expect(() => start("config")).to.throw();
   });
 });

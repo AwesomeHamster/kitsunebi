@@ -22,7 +22,7 @@ yargs
   .alias("v", "version")
   .argv;
 
-function start(config_path: string) {
+export function start(config_path: string): void {
   try {
     const config = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
 
@@ -34,6 +34,6 @@ function start(config_path: string) {
   } catch (err) {
     console.log("Error when starting kitsunebi...");
     console.log(err);
-    process.exit(1);
+    throw err;
   }
 }
