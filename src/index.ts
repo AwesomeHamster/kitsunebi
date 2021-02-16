@@ -23,17 +23,11 @@ yargs
   .argv;
 
 export function start(config_path: string): void {
-  try {
-    const config = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
+  const config = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
 
-    const bot = new OicqAdapter(config);
+  const bot = new OicqAdapter(config);
 
-    bot.on("message", (data) => {
-      console.log(data);
-    });
-  } catch (err) {
-    console.log("Error when starting kitsunebi...");
-    console.log(err);
-    throw err;
-  }
+  bot.on("message", (data) => {
+    console.log(data);
+  });
 }
