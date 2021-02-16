@@ -6,10 +6,6 @@ module.exports = {
     "node": true
   },
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: 2020,
-    project: './tsconfig.json',
-  },
   plugins: [
     "@typescript-eslint",
   ],
@@ -31,13 +27,11 @@ module.exports = {
     }],
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/quotes": ["error", "double"],
-    "@typescript-eslint/return-await": ["error", "always"],
     "@typescript-eslint/semi": ["error"],
     "brace-style": "off",
     "comma-dangle": "off",
     "indent": "off",
     "max-len": ["error", { "code": 120 }],
-    "no-return-await": "off",
     "no-trailing-spaces": "error",
     "quotes": "off",
     "semi": "off",
