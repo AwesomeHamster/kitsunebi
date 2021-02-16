@@ -3,7 +3,7 @@ name: Test
 on: [ 'push', 'pull_request' ]
 
 jobs:
-  eslint:
+  test:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Code
@@ -30,6 +30,6 @@ jobs:
         run: |
           yarn install
 
-      - name: ESLint
+      - name: Test
         run: |
           yarn run test
