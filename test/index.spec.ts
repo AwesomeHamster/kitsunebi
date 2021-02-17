@@ -1,9 +1,10 @@
 import { expect } from "chai";
 
 import { start } from "../src/index";
+import { OicqAdapter } from "../src/adapter";
 
-describe("Index", () => {
-  it("Throw!", () => {
+describe("index", () => {
+  it("throw with invalid config", () => {
     expect(() => start("config")).to.throw();
   });
 });

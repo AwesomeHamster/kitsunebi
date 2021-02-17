@@ -7,6 +7,18 @@ export interface TextElement extends BaseElement {
   text: string;
 }
 
-export type MessageElement = BaseElement | TextElement;
+export interface ImageElement extends BaseElement {
+  type: "image";
+  /** local path */
+  file?: string;
+  /** network url */
+  url?: string;
+  /** image file content */
+  buffer?: Buffer;
+  /** base64 encoded image content */
+  base64?: string;
+}
 
-export type Message = MessageElement | MessageElement[];
+export type MessageElement = TextElement | ImageElement;
+
+export type Message = MessageElement[];
