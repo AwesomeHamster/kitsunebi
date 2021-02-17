@@ -47,11 +47,11 @@ export class OicqAdapter implements Adapter {
       });
     });
 
-    this.bot.on("message.private", (data) => {
+    this.bot.on("message.user", (data) => {
       this.emit("message", new OicqSession(this.bot, data));
     });
 
-    this.bot.on("message.group", (data) => {
+    this.bot.on("message.guild", (data) => {
       this.emit("message", new OicqSession(this.bot, data));
     });
   }

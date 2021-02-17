@@ -7,9 +7,12 @@ export interface Adapter {
 }
 
 export interface EventMap {
+  /** general message received */
   "message"(session: Session): void;
-  "message.group"(session: Session): void;
-  "message.private"(session: Session): void;
+  /** public message from guild/group */
+  "message.guild"(session: Session): void;
+  /** private message from user */
+  "message.user"(session: Session): void;
 }
 
 export type EventType = keyof EventMap;
