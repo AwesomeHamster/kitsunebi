@@ -2,7 +2,9 @@
 import fs from "fs";
 import yargs from "yargs";
 import { ConfigFile } from "./model/config";
-import { OicqAdapter } from "./adapter";
+import { OicqAdapter } from "./adapters/oicq";
+import { DiscordAdapter } from "./adapters/discord";
+import { Adapter } from "./model/adapter";
 
 yargs
   .scriptName("kitsunebi")
@@ -25,9 +27,19 @@ yargs
 export function start(config_path: string): void {
   const config = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
 
-  const bot = new OicqAdapter(config);
+  const bots = config.meta.adapters.map((config): Adapter | undefined => {
+    if (config.type === "oicq") {
+      return new OicqAdapter(config);
+    }
+    if (config.type === "discord") {
+      return new DiscordAdapter(config);
+    }
+  });
 
-  bot.on("message", (data) => {
-    console.log(data);
+  bots.forEach((bot) => {
+    if (!bot) return;
+    bot.on("message", (session) => {
+      session.send("reply from kitsunebi");
+    });
   });
 }

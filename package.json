@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "watch": "tsc --watch",
     "lint": "eslint --ext .js,.ts src",
     "test": "mocha test --require ts-node/register --recursive --extension .spec.ts",
     "test:coverage": "nyc --reporter=lcovonly --reporter=text mocha test --require ts-node/register --recursive --extension .spec.ts"
@@ -36,7 +37,10 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
+    "bufferutil": "^4.0.3",
+    "discord.js": "^12.5.1",
     "oicq": "^1.12.6",
+    "utf-8-validate": "^5.0.4",
     "yargs": "^16.2.0"
   }
 }

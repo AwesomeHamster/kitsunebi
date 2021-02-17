@@ -1,18 +1,19 @@
 import EventEmitter from "events";
-import { Client, createClient, MessageElem } from "oicq";
-import { ConfigFile } from "./model/config";
-import { Context, GroupMessageContext, PrivateMessageContext } from "./model/context";
-import { Message } from "./model/message";
-import { Session } from "./model/session";
+import { Client, createClient, MessageElem, MessageEventData } from "oicq";
+import { OicqAdapterConfig } from "../model/config";
+import { Context, GroupMessageContext, PrivateMessageContext } from "../model/context";
+import { Adapter, EventMap, EventType } from "../model/adapter";
+import { Message } from "../model/message";
+import { Session } from "../model/session";
 
-export class OicqAdapter {
+export class OicqAdapter implements Adapter {
   bot: Client;
 
-  config: ConfigFile;
+  config: OicqAdapterConfig;
 
   receiver: EventEmitter;
 
-  constructor(config: ConfigFile) {
+  constructor(config: OicqAdapterConfig) {
     this.config = config;
 
     if (!config.account) {
@@ -22,7 +23,7 @@ export class OicqAdapter {
     if (!config.account.id || !config.account.password) {
       throw new Error("\"id\" and/or \"password\" not exist in config.");
     }
-    this.bot = createClient(config.account.id, config.meta?.config);
+    this.bot = createClient(config.account.id, config.config);
 
     this.receiver = new EventEmitter();
 
@@ -46,14 +47,12 @@ export class OicqAdapter {
       });
     });
 
+    this.bot.on("message.private", (data) => {
+      this.emit("message", new OicqSession(this.bot, data));
+    });
+
     this.bot.on("message.group", (data) => {
-      this.emit("message", new OicqSession(this.bot, {
-        timestamp: data.time,
-        userId: data.user_id,
-        userName: data.sender.nickname,
-        groupId: data.group_id,
-        groupName: data.group_name,
-      }, Util.fromOicqMessage(data.message)));
+      this.emit("message", new OicqSession(this.bot, data));
     });
   }
 
@@ -76,14 +75,14 @@ export class OicqSession implements Session {
   context: Context;
   message: Message;
 
-  constructor(bot: Client, context: Context, message: Message) {
+  constructor(bot: Client, message: MessageEventData) {
     this.bot = bot;
-    this.context = context;
-    this.message = message;
+    // this.context = context;
+    this.message = Util.fromOicqMessage(message.message);
   }
 
-  async send(message: string): Promise<unknown>;
-  async send(message: Message): Promise<unknown>;
+  send(message: string): Promise<unknown>;
+  send(message: Message): Promise<unknown>;
   async send(_message: unknown): Promise<unknown> {
     let userId: number;
     let message: Message;
@@ -180,9 +179,3 @@ export class Util {
   }
 
 }
-
-interface EventMap {
-  "message"(session: OicqSession): void;
-}
-
-export type EventType = keyof EventMap;
