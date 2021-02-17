@@ -4,6 +4,9 @@ export interface Adapter {
   emit<K extends EventType>(event: K, ...params: Parameters<EventMap[K]>): boolean;
 
   on<K extends EventType>(event: K, listener: EventMap[K]): Adapter;
+
+  /** close connection and destroy */
+  destroy(): void;
 }
 
 export interface EventMap {

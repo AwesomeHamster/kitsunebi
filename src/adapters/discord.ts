@@ -45,6 +45,10 @@ export class DiscordAdapter implements Adapter {
     this.receiver.on(event, listener);
     return this;
   }
+
+  destroy(): void {
+    this.bot.destroy();
+  }
 }
 
 export class DiscordSession implements Session {

@@ -41,5 +41,14 @@ export function start(config_path: string): void {
     bot.on("message", (session) => {
       session.send("reply from kitsunebi");
     });
+
+    // let node gently shutdown bots
+    process.on("exit", () => shutdownBots(bot));
+    process.on("SIGINT", () => shutdownBots(bot));
+    process.on("SIGTERM", () => shutdownBots(bot));
   });
+}
+
+function shutdownBots(bot: Adapter) {
+  bot.destroy();
 }

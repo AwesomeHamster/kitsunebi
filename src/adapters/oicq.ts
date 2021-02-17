@@ -68,6 +68,10 @@ export class OicqAdapter implements Adapter {
     this.receiver.on(event, listener);
     return this;
   }
+
+  destroy(): void {
+    this.bot.logout();
+  }
 }
 
 export class OicqSession implements Session {
@@ -77,8 +81,11 @@ export class OicqSession implements Session {
 
   constructor(bot: Client, message: MessageEventData) {
     this.bot = bot;
-    // this.context = context;
     this.message = Util.fromOicqMessage(message.message);
+    this.context = {
+      timestamp: message.time,
+      userId: message.user_id,
+    };
   }
 
   send(message: string): Promise<unknown>;
