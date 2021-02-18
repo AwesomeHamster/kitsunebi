@@ -5,6 +5,7 @@ import { ConfigFile } from "./model/config";
 import { OicqAdapter } from "./adapters/oicq";
 import { DiscordAdapter } from "./adapters/discord";
 import { Adapter } from "./model/adapter";
+import { WechatyAdapter } from "./adapters/wechaty";
 
 yargs
   .scriptName("kitsunebi")
@@ -25,14 +26,17 @@ yargs
   .argv;
 
 export function start(config_path: string): void {
-  const config = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
+  const configFile = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
 
-  const bots = config.meta.adapters.map((config): Adapter | undefined => {
+  const bots = configFile.meta.adapters.map((config): Adapter | undefined => {
     if (config.type === "oicq") {
       return new OicqAdapter(config);
     }
     if (config.type === "discord") {
       return new DiscordAdapter(config);
+    }
+    if (config.type === "wechaty") {
+      return new WechatyAdapter(config);
     }
   });
 

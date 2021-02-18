@@ -17,7 +17,14 @@ export interface DiscordAdapterConfig extends BaseAdapterConfig {
   };
 }
 
-export type AdapterConfig = OicqAdapterConfig | DiscordAdapterConfig;
+export interface WechatyAdapterConfig extends BaseAdapterConfig {
+  type: "wechaty",
+  config: {
+    // TODO: wechaty configs
+  };
+}
+
+export type AdapterConfig = OicqAdapterConfig | DiscordAdapterConfig | WechatyAdapterConfig;
 
 export interface Account {
   id?: number;
