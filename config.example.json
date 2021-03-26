@@ -1,12 +1,18 @@
 {
-  "account": {
-    "id": 12345678,
-    "password": "password"
-  },
   "meta": {
+    "account": {
+      "id": 12345678,
+      "password": "password"
+    },
     "config": {
       "platform": 1,
-      "log_level": "info"
+      "log_level": "info",
+      "kickoff": false,
+      "ignore_self": true,
+      "resend": true,
+      "reconn_interval": 5,
+      "slider": true,
+      "data_dir": "./data"
     }
   }
 }

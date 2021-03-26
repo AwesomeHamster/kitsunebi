@@ -69,7 +69,7 @@
   },
   "include": [
     "src"
-  ],
+, "packages/kitsunebi-models/src/adapter.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

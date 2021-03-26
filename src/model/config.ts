@@ -1,48 +1,13 @@
-import { ConfBot as OicqConfig } from "oicq";
-
-export interface BaseAdapterConfig {
-  type: string;
-  account: Account;
-}
-
-export interface OicqAdapterConfig extends BaseAdapterConfig {
-  type: "oicq",
-  config: OicqConfig;
-}
-
-export interface DiscordAdapterConfig extends BaseAdapterConfig {
-  type: "discord",
-  config: {
-    token: string,
-  };
-}
-
-export interface WechatyAdapterConfig extends BaseAdapterConfig {
-  type: "wechaty",
-  config: {
-    // TODO: wechaty configs
-  };
-}
-
-export type AdapterConfig = OicqAdapterConfig | DiscordAdapterConfig | WechatyAdapterConfig;
-
-export interface Account {
-  id?: number;
-  password?: string;
-}
-
-export interface CommandConfig {
-  prefix: string;
-}
+import { ConfBot } from "oicq";
 
 export interface Meta {
-  adapters: AdapterConfig[];
+  account: {
+    id: number;
+    password: string;
+  };
+  config: ConfBot;
 }
 
 export interface ConfigFile {
   meta: Meta;
 }
-
-export {
-  OicqConfig,
-};

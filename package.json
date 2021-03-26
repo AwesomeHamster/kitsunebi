@@ -37,11 +37,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "bufferutil": "^4.0.3",
-    "discord.js": "^12.5.1",
     "oicq": "^1.12.6",
-    "utf-8-validate": "^5.0.4",
-    "wechaty": "^0.56.6",
     "yargs": "^16.2.0"
   }
 }
