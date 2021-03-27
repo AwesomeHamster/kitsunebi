@@ -25,11 +25,10 @@ yargs
 export function start(config_path: string): void {
   const configFile = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
 
-  const Bot = createClient(configFile.meta.account.id, configFile.meta.config);
+  const bot = createClient(configFile.meta.account.id, configFile.meta.config);
 
   // let node gently shutdown bots
-  process.on("exit", Bot.terminate);
-  process.on("SIGINT", Bot.terminate);
-  process.on("SIGTERM", Bot.terminate);
+  process.on("exit", bot.terminate);
+  process.on("SIGINT", bot.terminate);
+  process.on("SIGTERM", bot.terminate);
 }
-

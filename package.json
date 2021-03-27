@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
+    "postinstall": "tsc",
     "lint": "eslint --ext .js,.ts src",
     "test": "mocha test --require ts-node/register --recursive --extension .spec.ts",
     "test:coverage": "nyc --reporter=lcovonly --reporter=text mocha test --require ts-node/register --recursive --extension .spec.ts"
@@ -37,6 +38,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
+    "nest": "AwesomeHamster/nest#master",
     "oicq": "^1.12.6",
     "yargs": "^16.2.0"
   }

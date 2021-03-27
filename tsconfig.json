@@ -69,7 +69,7 @@
   },
   "include": [
     "src"
-, "packages/kitsunebi-models/src/adapter.ts"  ],
+, "packages/kitsunebi-models/src/adapter.ts", "../nest/src/command.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

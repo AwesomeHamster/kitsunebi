@@ -1998,6 +1998,12 @@ neo-async@^2.6.2:
   resolved "https://registry.npm.taobao.org/neo-async/download/neo-async-2.6.2.tgz?cache=0&sync_timestamp=1594317447342&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fneo-async%2Fdownload%2Fneo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha1-tKr7k+OustgXTKU88WOrfXMIMF8=
 
+nest@AwesomeHamster/nest#master:
+  version "0.1.0"
+  resolved "https://codeload.github.com/AwesomeHamster/nest/tar.gz/0510a787b7ef7ffe94222b9d086291fdc3a8b584"
+  dependencies:
+    yargs "^16.2.0"
+
 node-preload@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npm.taobao.org/node-preload/download/node-preload-0.2.1.tgz#c03043bb327f417a18fee7ab7ee57b408a144301"
