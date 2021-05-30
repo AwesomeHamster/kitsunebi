@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-import fs from "fs";
 import yargs from "yargs";
 import { createClient } from "oicq";
 import requireAll from "require-all";
-import { ConfigFile } from "./model/config";
 import { Commander } from "./command";
+import { readConfigFile } from "./utils";
 
 yargs
   .scriptName("kitsunebi")
@@ -20,24 +19,24 @@ yargs
     start(argv.config as string);
   })
   .help()
+  .locale("zh_CN")
   .alias("h", "help")
   .version()
   .alias("v", "version")
   .argv;
 
 export function start(config_path: string): void {
-  const configFile = JSON.parse(String(fs.readFileSync(config_path))) as ConfigFile;
-
+  const configFile = readConfigFile(config_path);
   const bot = createClient(configFile.meta.account.id, configFile.meta.config);
 
-  const commander = new Commander(bot);
+  const commander = new Commander(bot, yargs, configFile);
   const commandModules = requireAll({
     dirname: __dirname + "/commands",
     filter: /(.+)\.js$/,
     recursive: true,
   });
-  Object.values(commandModules).forEach((value) => {
-    commander.onCommand(value);
+  Object.entries(commandModules).forEach(([key, value]) => {
+    commander.onCommand(key, value);
   });
 
   // let node gently shutdown bots

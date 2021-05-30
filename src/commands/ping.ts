@@ -1,7 +1,7 @@
 import { CommandModule } from "../model/command";
 
 export const command = ["ping [option]", "pong [option]"];
-export const description = "ping/pong test";
+export const description = "Ping-Pong测试";
 export const builder: CommandModule["builder"] = (yargs) => {
   return yargs.option("detail", {
     alias: ["d"],

@@ -8,9 +8,14 @@ export interface Action {
   [s: string]: unknown;
 }
 
+export interface CommandConfig {
+  permission: number;
+}
+
 export interface CommandModule {
   command: string | readonly string[];
   description?: string;
   builder: (yargs: Argv) => Argv;
   action: (action: Action) => void;
+  config?: CommandConfig;
 }

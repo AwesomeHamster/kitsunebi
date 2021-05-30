@@ -8,6 +8,11 @@ export interface Meta {
   config: ConfBot;
 }
 
+export interface Manage {
+  superuser: number[];
+}
+
 export interface ConfigFile {
   meta: Meta;
+  manage: Manage;
 }
