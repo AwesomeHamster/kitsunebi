@@ -39,6 +39,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "oicq": "^1.17.2",
     "require-all": "^3.0.0",
     "yargs": "^16.2.0"
