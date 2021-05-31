@@ -25,19 +25,28 @@ yargs
   .alias("v", "version")
   .argv;
 
+function iterate(array: [string, any][], callback: (key: string, value: any) => void) {
+  for (const [key, value] of array) {
+    if (value.command) {
+      callback(key, value);
+    }
+    if (typeof value === "object") {
+      iterate(Object.entries(value), callback);
+    }
+  };
+};
+
 export function start(config_path: string): void {
   const configFile = readConfigFile(config_path);
   const bot = createClient(configFile.meta.account.id, configFile.meta.config);
 
   const commander = new Commander(bot, yargs, configFile);
-  const commandModules = requireAll({
+  const commandModules = Object.entries(requireAll({
     dirname: __dirname + "/commands",
     filter: /(.+)\.js$/,
     recursive: true,
-  });
-  Object.entries(commandModules).forEach(([key, value]) => {
-    commander.onCommand(key, value);
-  });
+  }));
+  iterate(commandModules, commander.onCommand.bind(commander));
 
   // let node gently shutdown bots
   process.on("exit", bot.logout.bind(bot));
