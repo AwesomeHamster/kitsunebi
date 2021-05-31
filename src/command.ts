@@ -53,12 +53,11 @@ export class Commander {
     this.yargs.command(
       commandModule.command,
       commandModule.description ?? "",
-      commandModule.builder,
+      commandModule.builder ?? {},
       (args) => {
         const command = `${args._[0]}`;
-        const currentModule = this.commandModules[command];
-        if (currentModule && currentModule.config) {
-          const config = currentModule.config;
+        if (commandModule.config) {
+          const config = commandModule.config;
           if (config.permission && config.permission > (args.user as User).level) {
             (args.reply as Action["reply"])?.("当前权限不足以运行该指令");
             return;
@@ -74,4 +73,5 @@ export class Commander {
         });
       });
   }
+
 }
