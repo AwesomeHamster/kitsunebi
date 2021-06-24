@@ -14,4 +14,4 @@ export const action: CommandModule["action"] = (action) => {
 
 export const config = {
   permission: Permission.ADMIN,
-}
+};

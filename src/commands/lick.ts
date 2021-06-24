@@ -11,7 +11,7 @@ const getChp = async (): Promise<Chp> => {
   });
   const text = resp.data as Chp;
   return text;
-}
+};
 
 export const command = ["lick", "舔", "跪舔", "lap"];
 export const description = "回复随机彩虹屁";

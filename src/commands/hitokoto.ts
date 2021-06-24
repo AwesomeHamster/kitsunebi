@@ -22,7 +22,7 @@ const getHitokoto = async (): Promise<Hitokoto> => {
   const resp = await Axios.get(API_URL);
   const json = resp.data as Hitokoto;
   return json;
-}
+};
 
 export const command = ["hitokoto", "一言"];
 export const description = "回复随机一言";
