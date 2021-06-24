@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === "production";
  */
 const config = {
   entry: "./src/index.ts",
-  target: "node",
+  target: "node12.18",
   output: {
     path: path.resolve(__dirname, "dist"),
   },
@@ -45,6 +45,7 @@ module.exports = () => {
     config.mode = "production";
   } else {
     config.mode = "development";
+    config.devtool = "inline-source-map";
   }
   return config;
 };

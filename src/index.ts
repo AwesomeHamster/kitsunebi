@@ -13,6 +13,7 @@ yargs
       .option("config", {
         alias: "c",
         default: "config.json",
+        requiresArg: false,
         hidden: true,
       })
       .option("proxy", {

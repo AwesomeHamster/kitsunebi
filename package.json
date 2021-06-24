@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "start": "node ./dist/main.js",
+    "start": "node ./dist/main.js start",
     "lint": "eslint --ext .js,.ts src",
     "test": "mocha test --require ts-node/register --recursive --extension .spec.ts",
     "test:coverage": "nyc --reporter=lcovonly --reporter=text mocha test --require ts-node/register --recursive --extension .spec.ts",
