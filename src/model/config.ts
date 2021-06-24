@@ -1,7 +1,7 @@
 import { ConfBot } from "oicq";
 
 export interface Meta {
-  account: {
+  account?: {
     id: number;
     password: string;
   };
@@ -9,7 +9,7 @@ export interface Meta {
 }
 
 export interface Manage {
-  superuser: number[];
+  superuser?: number[];
 }
 
 export interface ConfigFile {

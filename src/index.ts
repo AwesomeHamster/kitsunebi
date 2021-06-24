@@ -45,7 +45,10 @@ function iterate(array: [string, any][], callback: (key: string, value: any) => 
 
 export function start(config_path: string, proxy?: string): void {
   const configFile = readConfigFile(config_path);
-  const bot = createClient(configFile.meta.account.id, configFile.meta.config);
+  const bot = createClient(
+    configFile.meta?.account?.id ?? parseInt(process.env["ACCOUNT_ID"] ?? "0"),
+    configFile.meta.config,
+  );
 
   const commander = new Commander(bot, yargs, configFile);
   const commandModules = Object.entries(requireAll({
@@ -69,5 +72,5 @@ export function start(config_path: string, proxy?: string): void {
   process.on("SIGINT", bot.logout.bind(bot));
   process.on("SIGTERM", bot.logout.bind(bot));
 
-  bot.login(configFile.meta.account.password);
+  bot.login(configFile.meta.account?.password ?? process.env["ACCOUNT_PASSWORD"]);
 }

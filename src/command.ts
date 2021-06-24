@@ -30,7 +30,7 @@ export class Commander {
               name: data.sender.nickname,
               level: getUserLevel(
                 data.user_id,
-                this.config.manage.superuser,
+                this.config.manage.superuser ?? process.env["SUPERUSER"]?.split(",").map(parseInt) ?? [],
                 (data as GroupMessageEventData).sender?.role,
               ),
               role: data.message_type === "group" ? data.sender.role : undefined,
