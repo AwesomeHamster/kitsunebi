@@ -1,15 +1,9 @@
 import { Argv } from "yargs";
-import { Client, GroupMessageEventData } from "oicq";
+import { Client, GroupMessageEventData, MessageElem } from "oicq";
 import { Action, CommandModule } from "./model/command";
 import { User } from "./model/user";
 import { getUserLevel } from "./utils";
 import { ConfigFile } from "./model/config";
-
-interface CommandEvent {
-  bot: Client;
-  command: string;
-  reply: (message: string) => void;
-}
 
 export class Commander {
   private bot: Client;
@@ -34,7 +28,11 @@ export class Commander {
             user: {
               id: data.user_id,
               name: data.sender.nickname,
-              level: getUserLevel(data.user_id, this.config.manage.superuser, (data as GroupMessageEventData).sender?.role),
+              level: getUserLevel(
+                data.user_id,
+                this.config.manage.superuser,
+                (data as GroupMessageEventData).sender?.role,
+              ),
               role: data.message_type === "group" ? data.sender.role : undefined,
             } as User,
             reply: (message: string) => data.reply(message),
@@ -66,8 +64,8 @@ export class Commander {
         commandModule.action({
           bot: this.bot,
           command: command,
-          reply: (message: string) => {
-            (args.reply as Action["reply"])?.(message);
+          reply: (message: MessageElem | Iterable<MessageElem> | string) => {
+            return (args.reply as Action["reply"])?.(message);
           },
           ...args,
         });

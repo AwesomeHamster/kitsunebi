@@ -1,18 +1,19 @@
 {
-  "name": "kitsunebi",
-  "version": "3.0.1",
-  "description": "A Bot",
-  "main": "dist/index.js",
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "dist/main.js",
   "bin": {
-    "kitsunebi": "dist/index.js"
+    "kitsunebi": "dist/main.js"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "postinstall": "tsc",
+    "build": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
     "lint": "eslint --ext .js,.ts src",
     "test": "mocha test --require ts-node/register --recursive --extension .spec.ts",
-    "test:coverage": "nyc --reporter=lcovonly --reporter=text mocha test --require ts-node/register --recursive --extension .spec.ts"
+    "test:coverage": "nyc --reporter=lcovonly --reporter=text mocha test --require ts-node/register --recursive --extension .spec.ts",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production"
   },
   "repository": "https://github.com/AwesomeHamster/kitsunebi.git",
   "author": "Maiko Tan <maiko.tan.coding@gmail.com>",
@@ -28,19 +29,24 @@
     "@types/yargs": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
+    "@webpack-cli/generators": "^2.2.0",
     "chai": "^4.3.0",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "eslint": "^7.20.0",
     "mocha": "^8.3.0",
     "nyc": "^15.1.0",
-    "ts-loader": "^8.0.17",
+    "prettier": "^2.3.1",
+    "ts-loader": "^9.2.3",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
-    "webpack": "^5.21.2",
-    "webpack-cli": "^4.5.0"
+    "typescript": "^4.3.4",
+    "webpack": "^5.40.0",
+    "webpack-cli": "^4.7.2"
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "booru": "^2.4.0",
     "cheerio": "^1.0.0-rc.9",
+    "node-global-proxy": "^1.0.1",
     "oicq": "^1.17.2",
     "require-all": "^3.0.0",
     "yargs": "^16.2.0"

@@ -1,5 +1,5 @@
-#!/usr/bin/env node
 import yargs from "yargs";
+import nodeGlobalProxy from "node-global-proxy";
 import { createClient } from "oicq";
 import requireAll from "require-all";
 import { Commander } from "./command";
@@ -14,9 +14,15 @@ yargs
         alias: "c",
         default: "config.json",
         hidden: true,
+      })
+      .option("proxy", {
+        alias: "x",
+        default: undefined,
+        requiresArg: false,
+        hidden: true,
       });
   }, (argv) => {
-    start(argv.config as string);
+    start(argv.config as string, argv.proxy as string);
   })
   .help()
   .locale("zh_CN")
@@ -25,6 +31,7 @@ yargs
   .alias("v", "version")
   .argv;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function iterate(array: [string, any][], callback: (key: string, value: any) => void) {
   for (const [key, value] of array) {
     if (value.command) {
@@ -33,10 +40,10 @@ function iterate(array: [string, any][], callback: (key: string, value: any) => 
     if (typeof value === "object") {
       iterate(Object.entries(value), callback);
     }
-  };
-};
+  }
+}
 
-export function start(config_path: string): void {
+export function start(config_path: string, proxy?: string): void {
   const configFile = readConfigFile(config_path);
   const bot = createClient(configFile.meta.account.id, configFile.meta.config);
 
@@ -47,6 +54,15 @@ export function start(config_path: string): void {
     recursive: true,
   }));
   iterate(commandModules, commander.onCommand.bind(commander));
+
+  if (proxy) {
+    nodeGlobalProxy.setConfig({
+      http: proxy,
+      https: proxy,
+    });
+    nodeGlobalProxy.start();
+    console.log(`proxy enabled with ${proxy}`);
+  }
 
   // let node gently shutdown bots
   process.on("exit", bot.logout.bind(bot));

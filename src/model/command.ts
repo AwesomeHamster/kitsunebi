@@ -1,10 +1,10 @@
-import { Client } from "oicq";
+import { Client, MessageElem } from "oicq";
 import { Argv } from "yargs";
 
 export interface Action {
   bot: Client,
   command: string,
-  reply: (message: string) => void;
+  reply: (message: MessageElem | Iterable<MessageElem> | string) => Promise<void>;
   [s: string]: unknown;
 }
 
